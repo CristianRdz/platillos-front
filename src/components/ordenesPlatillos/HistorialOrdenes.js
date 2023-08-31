@@ -2,12 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
-  Col,
   Container,
   FormControl,
   InputGroup,
   Modal,
-  Row,
 } from "react-bootstrap";
 import { AuthContext } from "../../services/auth/context/AuthContext";
 import {
@@ -15,9 +13,10 @@ import {
   getOrdenesUsuario,
   removeOrden,
 } from "../../services/ordenes/ordenesService";
+import VerElementosOrden from "./VerElementosOrden";
 
 export const HistorialOrdenes = () => {
-  const { userInfo, isLoading, logout } = useContext(AuthContext);
+  const { userInfo } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [ordenes, setOrdenes] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
@@ -91,6 +90,18 @@ export const HistorialOrdenes = () => {
                   </div>
                 </div>
                 <div style={styles.multipleButtons}>
+                <Button
+                    className="m-2"
+                    variant="primary"
+                    onClick={() => {
+                      setRenderComponent(
+                        <VerElementosOrden orden={item} />
+                      );
+                      openClose();
+                    }}
+                  >
+                    Ver elementos de la orden
+                  </Button>
                   {item.estatus === true ? (
                     <Button
                       variant={item.estatus === true ? "danger" : "success"}
