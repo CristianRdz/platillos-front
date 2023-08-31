@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Eye, EyeSlash } from 'react-bootstrap-icons';
 import { AuthContext } from '../../services/auth/context/AuthContext';
-import { Button } from 'react-bootstrap';
+import { Button, Image } from 'react-bootstrap';
 
 export default function Login() {
   const {login, isLoading} = useContext(AuthContext);
@@ -33,7 +33,7 @@ export default function Login() {
         <Form>
           <div className="mb-3">
             <label htmlFor="email" className="form-label">
-              Email
+              Correo electrónico
             </label>
             <Field
               type="email"
@@ -45,7 +45,7 @@ export default function Login() {
           </div>
           <div className="mb-3">
             <label htmlFor="password" className="form-label">
-              Password
+              Contraseña
             </label>
             <div className="input-group">
               <Field

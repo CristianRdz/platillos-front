@@ -5,6 +5,9 @@ import Login from "../components/usuarios/login";
 import { AuthContext } from "../services/auth/context/AuthContext";
 import Menu from "../components/menu/menu";
 import GestionUsuarios from "../components/usuarios/GestionUsuarios";
+import GestionPlatillos from "../components/platillos/GestionPlatillos";
+import VerPlatillos from "../components/platillos/VerPlatillos";
+import VerGanancias from "../components/ordenes/VerGanancias";
 
 export default function Router() {
   const { userInfo, splashLoading } = React.useContext(AuthContext);
@@ -24,6 +27,7 @@ export default function Router() {
               path="/"
               element={<Menu />}
             />
+            <Route path="/platillos" element={<VerPlatillos />} />
             <Route
               path="*"
               element={<h1 className="text-center">404 no encontrado</h1>}
@@ -39,6 +43,8 @@ export default function Router() {
               element={<Menu />}
             />
             <Route path="/usuarios" element={<GestionUsuarios />} />
+            <Route path="/platillos" element={<GestionPlatillos />} />
+            <Route path="/ventas" element={<VerGanancias />} />
             <Route
               path="*"
               element={<h1 className="text-center">404 no encontrado</h1>}

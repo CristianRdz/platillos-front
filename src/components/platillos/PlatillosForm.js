@@ -1,9 +1,12 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { savePlatillo, updatePlatillo } from "../../services/platillos/platillosService";
+import {
+  savePlatillo,
+  updatePlatillo,
+} from "../../services/platillos/platillosService";
 
-export default function EditPlatilloForm(props) {
+export default function PlatillosForm(props) {
   const { platillo, fetchData, openClose } = props;
   const initialValues = {
     nombre: platillo ? platillo.nombre : "",
@@ -28,53 +31,59 @@ export default function EditPlatilloForm(props) {
 
   const handleSubmit = async (values) => {
     if (platillo) {
-        const preCategoria = categorias.find(
-          (categoria) => categoria.id === parseInt(values.categoria)
-        );
-        let platilloTemp = platillo;
-        platilloTemp.nombre = values.nombre;
-        platilloTemp.precio = values.precio;
-        platilloTemp.descripcion = values.descripcion;
-        platilloTemp.categoria = {
+      const preCategoria = categorias.find(
+        (categoria) => categoria.id === parseInt(values.categoria)
+      );
+      const timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      let platilloTemp = platillo;
+      platilloTemp.nombre = values.nombre;
+      platilloTemp.precio = values.precio;
+      platilloTemp.descripcion = values.descripcion;
+      platilloTemp.fecha_modificacion = timestamp;
+      platilloTemp.categoria = {
+        id_categoria: values.categoria,
+        nombre: preCategoria.nombre,
+      };
+      const response = await updatePlatillo(platilloTemp);
+      if (response) {
+        fetchData();
+        openClose();
+        alert("Platillo actualizado correctamente");
+      } else {
+        alert("Error al actualizar el platillo");
+      }
+    } else {
+      const preCategoria = categorias.find(
+        (categoria) => categoria.id === parseInt(values.categoria)
+      );
+      // creamos un timestamp como este 2023-08-30 20:59:34
+      const timestamp = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      const platilloTemp = {
+        nombre: values.nombre,
+        precio: values.precio,
+        descripcion: values.descripcion,
+        estatus: true,
+        fecha_creacion: timestamp,
+        fecha_modificacion: timestamp,
+        categoria: {
           id_categoria: values.categoria,
           nombre: preCategoria.nombre,
-        };
-        const response = await updatePlatillo(platilloTemp);
-        if (response) {
-          fetchData();
-          openClose();
-          alert("Platillo actualizado correctamente");
-        }else {
-          alert("Error al actualizar el platillo");
-        }
-    } else {
-        const preCategoria = categorias.find(
-            (categoria) => categoria.id === parseInt(values.categoria)
-            );
-            const platilloTemp = {
-            nombre: values.nombre,
-            precio: values.precio,
-            descripcion: values.descripcion,
-            categoria: {
-                id_categoria: values.categoria,
-                nombre: preCategoria.nombre,
-            },
-            };
-            const response = await savePlatillo(platilloTemp);
-            if (response) {
-            fetchData();
-            openClose();
-            alert("Platillo creado correctamente");
-            } else {
-            alert("Error al crear el platillo");
-            }
+        },
+      };
+      const response = await savePlatillo(platilloTemp);
+      if (response) {
+        fetchData();
+        openClose();
+        alert("Platillo creado correctamente");
+      } else {
+        alert("Error al crear el platillo");
+      }
     }
-    };
-    
+  };
 
   return (
     <div>
-      <h1>Editar Platillo</h1>
+      <h1>{platillo ? "Editar Platillo" : "Crear Platillo"}</h1>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

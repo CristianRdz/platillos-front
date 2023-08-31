@@ -72,13 +72,11 @@ export const GestionUsuarios = () => {
       </div>
 
       {filteredUsuarios.length > 0 ? (
-        <Row className="mt-5">
+        <div className="d-flex flex-wrap flex-row justify-content-center mt-2">
           {filteredUsuarios.map(
             (item) => (
-              console.log(item.rol.id_rol),
               (
-                <Col key={item.id_usuario}>
-                  <Card style={styles.usuariosContainer}>
+                <Card style={styles.usuariosContainer} key={item.id_usuario} className="m-2">
                     <Card.Body>
                       <div style={styles.usuariosInfo}>
                         <div>
@@ -166,11 +164,10 @@ export const GestionUsuarios = () => {
                       </div>
                     </Card.Body>
                   </Card>
-                </Col>
               )
             )
           )}
-        </Row>
+        </div>
       ) : (
         <div style={styles.body}>
           <p style={styles.noUsuariosText}>No hay usuarios para mostrar</p>
