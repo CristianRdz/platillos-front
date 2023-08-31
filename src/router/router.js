@@ -8,6 +8,7 @@ import GestionUsuarios from "../components/usuarios/GestionUsuarios";
 import GestionPlatillos from "../components/platillos/GestionPlatillos";
 import VerPlatillos from "../components/platillos/VerPlatillos";
 import VerGanancias from "../components/ordenes/VerGanancias";
+import HistorialOrdenes from "../components/ordenesPlatillos/HistorialOrdenes";
 
 export default function Router() {
   const { userInfo, splashLoading } = React.useContext(AuthContext);
@@ -28,6 +29,7 @@ export default function Router() {
               element={<Menu />}
             />
             <Route path="/platillos" element={<VerPlatillos />} />
+            <Route path="/historial" element={<HistorialOrdenes />} />
             <Route
               path="*"
               element={<h1 className="text-center">404 no encontrado</h1>}

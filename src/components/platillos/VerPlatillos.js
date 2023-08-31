@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap";
 import { AuthContext } from "../../services/auth/context/AuthContext";
 import { getPlatillosActivos } from "../../services/platillos/platillosService";
+import FormOrdenesPlatillos from "../ordenesPlatillos/FormOrdenesPlatillos";
 
 export const VerPlatillos = () => {
   const { userInfo, isLoading, logout } = useContext(AuthContext);
@@ -53,17 +54,6 @@ export const VerPlatillos = () => {
             onChange={(e) => handleSearchTextChange(e.target.value)}
             value={searchText}
           />
-          <Button
-            variant="success"
-            onClick={() => {
-              setRenderComponent(
-                <div>hola</div> 
-              );
-              openClose();
-            }}
-          >
-            Ver orden actual
-          </Button>
         </InputGroup>
       </div>
 
@@ -95,31 +85,10 @@ export const VerPlatillos = () => {
                     variant={item.estatus === true ? "danger" : "success"}
                     onClick={() => {
                       setRenderComponent(
-                        <div>
-                          <h1 style={styles.noPlatillosText}>
-                            ¿Desea añadir el platillo a la orden?
-                          </h1>
-                            <p style={styles.platillosName}>
-                                Elige el tamaño del platillo:
-                            </p>
-                            <select className="form-select" aria-label="Default select example">
-                                <option selected>Selecciona el tamaño</option>
-                                <option value="1">Chico</option>
-                                <option value="2">Mediano</option>
-                                <option value="3">Grande</option>
-                            </select>
-                          <div style={styles.multipleButtons}>
-                            <Button
-                              variant="secondary"
-                              onClick={() => openClose()}
-                            >
-                              Cancelar
-                            </Button>
-                            <Button className="m-2" variant={"success"}>
-                              Añadir a la orden
-                            </Button>
-                          </div>
-                        </div>
+                        <FormOrdenesPlatillos
+                          platillo={item}
+                          openClose={openClose}
+                        />
                       );
                       openClose();
                     }}

@@ -6,7 +6,7 @@ import { AuthContext } from "../../services/auth/context/AuthContext";
 const CustomNavbar = () => {
   const { logout } = useContext(AuthContext);
   return (
-    <Navbar bg="success" className="shadow" expand="lg" variant="dark">
+    <Navbar bg="success" className="shadow" expand="md">
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mx-auto">
